@@ -22,7 +22,7 @@ class Face_Recognition_System:
         img1 = Image.open(r"C:\Users\flexuser\PycharmProjects\Attendance System\login\student_portal.jpg")                                                                      # Path for the image
         img1 = img1.resize((240,240), Image.ANTIALIAS)                                                                                                                          # Resizing
         self.student_img = ImageTk.PhotoImage(img1)
-        StudentButton = Button(bg_1abel, image=self.student_img, cursor="hand2")                                                                                                # Convertig the image into a button
+        StudentButton = Button(bg_1abel, image=self.student_img, cursor="hand2")                                                                                                # Converting the image into a button
         StudentButton.place(x=300, y=140, width=240, height=240)                                                                                                                # Giving appropriate coordinates
         b1 = Button(bg_1abel, text="Student Portal", cursor="hand2", font=("times new roman",15, "bold"), bg="darkblue", fg="white")
         b1.place(x=300, y=340, width=240, height=40)
