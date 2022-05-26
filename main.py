@@ -18,11 +18,11 @@ class Face_Recognition_System:
         self.root.title("Face Recognition System")
         self.root.geometry("1350x700+0+0")
 
-        # Set background
+        # ======Set background=====
         self.bg_icon = ImageTk.PhotoImage(file="login/bg.jpg")
         bg_1abel = Label(self.root, image=self.bg_icon).pack()
 
-        # Title
+        # =======Title======
         title = Label(self.root, text="Face Recognition Attendance System", font=("times new roman", 40, "bold"), bg="black", fg="white", bd=10, relief=GROOVE)
         title.place(x=0, y=0, relwidth=1)
 
@@ -32,16 +32,16 @@ class Face_Recognition_System:
             time_label.config(text=timestring)
             time_label.after(1000,Time)
 
-        time_label = Label(title, font=('times new roman', 15, 'bold'), bg="black", fg="blue")
+        time_label = Label(title, font=('times new roman', 15, 'bold'), bg="black", fg="blue")                                                                                 # Calling the Time() function to display time
         time_label.place(x=5, y=5, width=110,height=50)
         Time()
 
-        # Buttons
+        # =====Buttons======
         # Student portal
-        img1 = Image.open(r"login\student_portal.jpg")                                                                      # Path for the image
+        img1 = Image.open(r"login\student_portal.jpg")                                                                                                                          # Accessing the image from our working directory                                                         
         img1 = img1.resize((240,240), Image.ANTIALIAS)                                                                                                                          # Resizing
         self.student_img = ImageTk.PhotoImage(img1)
-        StudentButton = Button(bg_1abel, image=self.student_img, command=self.details_portal, cursor="hand2")                                                                                                # Convertig the image into a button
+        StudentButton = Button(bg_1abel, image=self.student_img, command=self.details_portal, cursor="hand2")                                                                   # Convertig the image into a button
         StudentButton.place(x=300, y=140, width=240, height=240)                                                                                                                # Giving appropriate coordinates
         b1 = Button(bg_1abel, text="Student Portal", command=self.details_portal, cursor="hand2", font=("times new roman",15, "bold"), bg="darkblue", fg="white")
         b1.place(x=300, y=340, width=240, height=40)
@@ -90,7 +90,8 @@ class Face_Recognition_System:
         exit_img.place(x=980, y=480, width=240, height=240)
         b6 = Button(bg_1abel, text="Exit", cursor="hand2",command=self.iExit, font=("times new roman", 15, "bold"), bg="darkblue", fg="white")
         b6.place(x=980, y=680, width=240, height=40)
-
+    
+    # Exit window 
     def iExit(self):
         self.iExit=tkinter.messagebox.askyesno("Exit face recognition","Are you sure you want to exit?",parent=self.root)
         if self.iExit>0:
@@ -122,10 +123,7 @@ class Face_Recognition_System:
     def View_Attendance(self):
         self.new_window = Toplevel(self.root)
         self.portal = attendance_sheet(self.new_window)
-
-    # # Exit window
-    # def Exit(self):
-
+        
 
 
 if __name__ == "__main__":
