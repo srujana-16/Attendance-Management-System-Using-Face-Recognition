@@ -2,7 +2,7 @@
 from tkinter import*
 from tkinter import ttk
 from PIL import Image,ImageTk
-# import face_recognition
+import face_recognition
 import os
 from tkinter import messagebox
 import mysql.connector
@@ -14,9 +14,9 @@ class Student:
         self.root.title("Student Portal")
         self.root.geometry("1350x700+0+0")
 
-        # ====Image and Title====
+        # =======Image and Title=======
         # Set background
-        bg = Image.open(r"C:\Users\flexuser\PycharmProjects\Attendance System\login\student_bg.jpg")
+        bg = Image.open(r"login\student_bg.jpg")
         bg = bg.resize((1600, 900), Image.ANTIALIAS)
         self.student_bg=ImageTk.PhotoImage(bg)
         bg_label = Label(self.root, image=self.student_bg)
@@ -35,12 +35,12 @@ class Student:
         self.course = StringVar()
 
 
-        # ======Main frame======
+        # ==========Main frame==========
         main_frame = Frame(bg_label, bd=2)
         main_frame.place(x=150, y=130, width=1230, height=590)
 
         # =====Left frame======
-        left_frame = LabelFrame(main_frame, bd=2, relief=GROOVE, text="Student Details", font=("times new roman",18, "bold"))                 
+        left_frame = LabelFrame(main_frame, bd=2, relief=GROOVE, text="Student Details", font=("times new roman",18, "bold"))                 # Title
         left_frame.place(x=20, y=10, width=445, height=560)
 
         # Student name
@@ -119,8 +119,7 @@ class Student:
         scrollY.pack(side=RIGHT, fill=Y)
         scrollX.config(command=self.details_table.xview)
         scrollY.config(command=self.details_table.yview)
-        
-        # Columns
+
         self.details_table.heading("name", text="Name")
         self.details_table.heading("roll", text="Roll number")
         self.details_table.heading("id", text="Student ID")
@@ -143,20 +142,20 @@ class Student:
     # ==========FUNCTIONS===========
     # Store the data in database
     def AddData(self):
-        if self.name.get()=="" or  self.roll_num.get()=="" or self.id.get()=="" or self.department.get()=="" or  self.year.get()=="" or self.course.get()=="":                                                        # If given info is not adequate, show error
+        if self.name.get()=="" or  self.roll_num.get()=="" or self.id.get()=="" or self.department.get()=="" or  self.year.get()=="" or self.course.get()=="":                      # If given info is not adequate, show error
             messagebox.showerror("Error", "All fields are required!", parent=self.root)
         else:
             try:
-                connection = mysql.connector.connect(host="localhost", user="root", password="Mysqlpass@1", database="sys")                                                                                           # Creating the connection with Mysql
+                connection = mysql.connector.connect(host="localhost", user="root", password="Mysqlpass@1", database="sys")                                    
                 cursor1=connection.cursor()
-                cursor1.execute("insert into student_details values(%s, %s, %s, %s, %s, %s)", (self.name.get(), self.roll_num.get(), self.id.get(), self.year.get(), self.department.get(), self.course.get()))       # Inserting all the data into the table
+                cursor1.execute("insert into student_details values(%s, %s, %s, %s, %s, %s)", (self.name.get(), self.roll_num.get(), self.id.get(), self.year.get(), self.department.get(), self.course.get()))
 
                 connection.commit()
                 self.DisplayData()
                 connection.close()
                 messagebox.showinfo("Success", "Successfully stored all details!", parent=self.root)
             except EXCEPTION as es:
-                messagebox.showerror("Error", f"Error due to: {str(es)}", parent=self.root)                                                                                                                            # Error message 
+                messagebox.showerror("Error", f"Error due to: {str(es)}", parent=self.root)
 
     # Display the data stored
     def DisplayData(self):
@@ -168,7 +167,7 @@ class Student:
         if len(database) != 0:
             self.details_table.delete(*self.details_table.get_children())
             for j in database:
-                self.details_table.insert("", END, values=j)                                                                # Displaying all the data
+                self.details_table.insert("", END, values=j)  # Displaying all the data
             connection.commit()
         connection.close()
 
@@ -188,15 +187,15 @@ class Student:
 
     # Update function
     def UpdateDetails(self):
-        if self.name.get()=="" or  self.roll_num.get()=="" or self.id.get()=="" or  self.department.get()=="" or  self.year.get()=="" or self.course.get()=="":                                                                          # If given info is not adequate, show error
+        if self.name.get()=="" or  self.roll_num.get()=="" or self.id.get()=="" or  self.department.get()=="" or  self.year.get()=="" or self.course.get()=="":                      # If given info is not adequate, show error
             messagebox.showerror("Error", "All fields are required!", parent=self.root)
         else:
             try:
                 UpdateInfo = messagebox.askokcancel("Update details", "Do you want to update the details?", parent=self.root)
                 if UpdateInfo>0:
-                    connection = mysql.connector.connect(host="localhost", user="root", password="Mysqlpass@1",database="sys")                                                                                                            # Creating the connection with Mysql
+                    connection = mysql.connector.connect(host="localhost", user="root", password="Mysqlpass@1",database="sys") 
                     cursor1 = connection.cursor()
-                    cursor1.execute("update student_details set name=%s, roll=%s, id=%s, year=%s, dep=%s, course=%s", (self.name.get(), self.roll_num.get(),self.id.get(), self.year.get(),self.department.get(),self.course.get()))      # Inserting all the data into the table
+                    cursor1.execute("update student_details set name=%s, roll=%s, id=%s, year=%s, dep=%s, course=%s", (self.name.get(), self.roll_num.get(),self.id.get(), self.year.get(),self.department.get(),self.course.get()))
 
                 else:
                     if not UpdateInfo:
@@ -218,10 +217,10 @@ class Student:
                 delete = messagebox.askokcancel("Delete details", "Do you want to delete the data?", parent=self.root)
                 if delete>0:
                     connection = mysql.connector.connect(host="localhost", user="root", password="Mysqlpass@1",database="sys")            
-                    cursor1 = connection.cursor()                                                               
-                    sql = "delete from student_details where roll=%s"                                                               # Delete the data of the given roll number 
+                    cursor1 = connection.cursor()
+                    sql = "delete from student_details where roll=%s"
                     val = (self.roll_num.get(),)
-                    cursor1.execute(sql, val)                                                                                       # Deleting the data of the cursor value chosen
+                    cursor1.execute(sql, val)
 
                 else:
                     if not delete:
@@ -236,7 +235,7 @@ class Student:
 
     # Reset function
     def Reset(self):
-        self.name.set(""),                                                                                                          # Setting all the variables to initial conditions
+        self.name.set(""),                                                                                                              
         self.roll_num.set(""),
         self.year.set(""),
         self.department.set(""),
@@ -249,14 +248,14 @@ class Student:
             messagebox.showerror("Error", "All fields are required!", parent=self.root)
         else:
             try:
-                connection = mysql.connector.connect(host="localhost", user="root", password="Mysqlpass@1",database="sys")                                      # Creating the connection
+                connection = mysql.connector.connect(host="localhost", user="root", password="Mysqlpass@1",database="sys")                                      
                 cursor1 = connection.cursor()
                 cursor1.execute("select * from student_details")
-                output = cursor1.fetchall()                                                                                                                     # Fetching all the details where the cursor points 
+                output = cursor1.fetchall()
                 index = 0
                 for i in output:
                     index+=1
-                cursor1.execute("update student_details set name=%s, roll=%s, year=%s, dep=%s, course=%s, id=%s", (self.name.get(), self.roll_num.get(), self.year.get(), self.department.get(), self.course.get(), self.id.get()==index+1))           # Increasing the student ID on moving to next student
+                cursor1.execute("update student_details set name=%s, roll=%s, year=%s, dep=%s, course=%s, id=%s", (self.name.get(), self.roll_num.get(), self.year.get(), self.department.get(), self.course.get(), self.id.get()==index+1))
 
                 connection.commit()
                 self.DisplayData()
@@ -268,33 +267,33 @@ class Student:
                 faceClassifier = cv2.CascadeClassifier("haarcascade_frontalface_default.xml")
 
                 def cropped_face(img):
-                    img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)                                                  # Converting BGR to GRAY
-                    face = faceClassifier.detectMultiScale(img_rgb,1.3,5)                                            # scaling factor and minimum neighbor
+                    img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+                    face = faceClassifier.detectMultiScale(img_rgb,1.3,5)                       # scaling factor and minimum neighbor
 
                     for (x,y,w,h) in face:
-                        cropped_face = img[y:y+h, x:x+w]                                                             # reducing size of the image to speed up the process
+                        cropped_face = img[y:y+h, x:x+w]
                         return cropped_face
 
-                capture_device = cv2.VideoCapture(0)                                                                 # initialising the webcam
+                capture_device = cv2.VideoCapture(0)                                             # initialising the webcam
                 image_id = 0
 
                 while True:
                     success, current_frame = capture_device.read()
                     if cropped_face(current_frame) is not None:
                         image_id += 1
-                        img_s = cv2.resize(cropped_face(current_frame), (450, 450))                                  # reducing size of the image to speed up the process
-                        img_s = cv2.cvtColor(img_s, cv2.COLOR_BGR2GRAY)                                              # converting into GRAY
-                        file_path = "Dataset/user." + str(index) + "." + str(image_id) + ".jpg"                      # Naming convention for the dataset
+                        img_s = cv2.resize(cropped_face(current_frame), (450, 450))                                       # reducing size of the image to speed up the process
+                        img_s = cv2.cvtColor(img_s, cv2.COLOR_BGR2GRAY)                                                   # converting into RGB
+                        file_path = "Dataset/user." + str(index) + "." + str(image_id) + ".jpg"                           # Naming convention for the dataset
                         cv2.imwrite(file_path, img_s)
                         cv2.putText(img_s, str(image_id), (50, 50), cv2.FONT_HERSHEY_PLAIN, 2, (0, 255, 0), 2)
                         cv2.imshow("Webcam", img_s)
 
-                    if cv2.waitKey(1) == 13 or int(image_id) == 100:                                                 # If enter is pressed, or 100 samples collected, break loop
+                    if cv2.waitKey(1) == 13 or int(image_id) == 100:                                                      # If enter is pressed, or 100 samples collected
                         break
                 capture_device.release()
                 cv2.destroyAllWindows()
 
-                messagebox.showinfo("Success", "Successfully generated dataset!")
+                messagebox.showinfo("Success", "Successfully generated dataset!", parent=self.root)
 
             except EXCEPTION as es:
                 messagebox.showerror("Error", f"Error due to: {str(es)}", parent=self.root)
