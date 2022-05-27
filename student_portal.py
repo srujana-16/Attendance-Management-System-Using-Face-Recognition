@@ -16,7 +16,7 @@ class Student:
 
         # =======Image and Title=======
         # Set background
-        bg = Image.open(r"login\student_bg.jpg")
+        bg = Image.open(r"pictures\student_bg.jpg")
         bg = bg.resize((1600, 900), Image.ANTIALIAS)
         self.student_bg=ImageTk.PhotoImage(bg)
         bg_label = Label(self.root, image=self.student_bg)
@@ -35,14 +35,15 @@ class Student:
         self.course = StringVar()
 
 
-        # ==========Main frame==========
+        # ======Main frame======
         main_frame = Frame(bg_label, bd=2)
         main_frame.place(x=150, y=130, width=1230, height=590)
 
         # =====Left frame======
-        left_frame = LabelFrame(main_frame, bd=2, relief=GROOVE, text="Student Details", font=("times new roman",18, "bold"))                 # Title
+        left_frame = LabelFrame(main_frame, bd=2, relief=GROOVE, text="Student Details", font=("times new roman",18, "bold"))
         left_frame.place(x=20, y=10, width=445, height=560)
 
+        # =====User inputs=====
         # Student name
         name_label = Label(left_frame, text="Full name:", font=("times new roman", 15, "bold"))
         name_label.grid(row=0, column=0, padx=2, pady=10)
@@ -73,6 +74,7 @@ class Student:
         course_label.grid(row=5, column=0, padx=2, pady=10)
         dep_entry = Entry(left_frame, textvariable=self.course, width=20, bd=5, relief=GROOVE, font=("", 15)).grid(row=5, column=1, padx=20, sticky=W)
 
+        # ======Buttons=====
         # Radio buttons
         self.radio_Button1=StringVar()
         radioButton1 = ttk.Radiobutton(left_frame, variable=self.radio_Button1, text="Take Photo", value="Yes")
@@ -84,23 +86,20 @@ class Student:
         button_frame = Frame(left_frame, bd=2, relief=GROOVE)
         button_frame.place(x=10,y=335,width=420, height=160)
 
-        save_button =Button(button_frame, text="Save", command=self.AddData, width=20, height=2, font=("times new roman", 13, "bold"),  bg="darkblue", fg="white")          # Save button
+        save_button =Button(button_frame, text="Save", command=self.AddData, width=20, height=2, font=("times new roman", 13, "bold"),  bg="darkblue", fg="white")                             # Save button
         save_button.grid(row=0, column=0)
 
-        update_button = Button(button_frame, text="Update", command=self.UpdateDetails, width=20, height=2, font=("times new roman", 13, "bold"), bg="darkblue",fg="white")           # Update button
+        update_button = Button(button_frame, text="Update", command=self.UpdateDetails, width=20, height=2, font=("times new roman", 13, "bold"), bg="darkblue",fg="white")                    # Update button
         update_button.grid(row=0, column=1)
 
-        delete_button = Button(button_frame, text="Delete", command=self.DeleteInfo, width=20, height=2, font=("times new roman", 13, "bold"), bg="darkblue",fg="white")           # Delete button
+        delete_button = Button(button_frame, text="Delete", command=self.DeleteInfo, width=20, height=2, font=("times new roman", 13, "bold"), bg="darkblue",fg="white")                       # Delete button
         delete_button.grid(row=1, column=0)
 
-        reset_button = Button(button_frame, text="Reset", command=self.Reset, width=20, height=2, font=("times new roman", 13, "bold"), bg="darkblue", fg="white")          # Reset button
+        reset_button = Button(button_frame, text="Reset", command=self.Reset, width=20, height=2, font=("times new roman", 13, "bold"), bg="darkblue", fg="white")                              # Reset button
         reset_button.grid(row=1, column=1)
 
-        take_pic_button = Button(button_frame, text="Take photo", command=self.Take_Photo_Samples, width=20, height=2, font=("times new roman", 13, "bold"), bg="darkblue",fg="white")          # Take photo button
-        take_pic_button.grid(row=2, column=0)
-
-        update_pic_button = Button(button_frame, text="Update photo", width=20, height=2, font=("times new roman", 13, "bold"), bg="darkblue",fg="white")  # Update photo button
-        update_pic_button.grid(row=2, column=1)
+        take_pic_button = Button(button_frame, text="Take photo", command=self.Take_Photo_Samples, width=45, height=2, font=("times new roman", 13, "bold"), bg="darkblue",fg="white")          # Take photo button
+        take_pic_button.place(x=0, y=110)
 
         # =====Right frame=====
         right_frame = LabelFrame(main_frame, bd=2, relief=GROOVE, text="View student details", font=("times new roman", 18, "bold"))
@@ -146,7 +145,7 @@ class Student:
             messagebox.showerror("Error", "All fields are required!", parent=self.root)
         else:
             try:
-                connection = mysql.connector.connect(host="localhost", user="root", password="Mysqlpass@1", database="sys")                                    
+                connection = mysql.connector.connect(host="localhost", user="root", password="Mysqlpass@1", database="sys")                                                          # Creating the connection
                 cursor1=connection.cursor()
                 cursor1.execute("insert into student_details values(%s, %s, %s, %s, %s, %s)", (self.name.get(), self.roll_num.get(), self.id.get(), self.year.get(), self.department.get(), self.course.get()))
 
@@ -193,7 +192,7 @@ class Student:
             try:
                 UpdateInfo = messagebox.askokcancel("Update details", "Do you want to update the details?", parent=self.root)
                 if UpdateInfo>0:
-                    connection = mysql.connector.connect(host="localhost", user="root", password="Mysqlpass@1",database="sys") 
+                    connection = mysql.connector.connect(host="localhost", user="root", password="Mysqlpass@1",database="sys")
                     cursor1 = connection.cursor()
                     cursor1.execute("update student_details set name=%s, roll=%s, id=%s, year=%s, dep=%s, course=%s", (self.name.get(), self.roll_num.get(),self.id.get(), self.year.get(),self.department.get(),self.course.get()))
 
@@ -216,7 +215,7 @@ class Student:
             try:
                 delete = messagebox.askokcancel("Delete details", "Do you want to delete the data?", parent=self.root)
                 if delete>0:
-                    connection = mysql.connector.connect(host="localhost", user="root", password="Mysqlpass@1",database="sys")            
+                    connection = mysql.connector.connect(host="localhost", user="root", password="Mysqlpass@1",database="sys")
                     cursor1 = connection.cursor()
                     sql = "delete from student_details where roll=%s"
                     val = (self.roll_num.get(),)
@@ -234,8 +233,9 @@ class Student:
                 messagebox.showerror("Error", f"Error due to: {str(es)}", parent=self.root)
 
     # Reset function
+    # Setting all the variables to initial conditions
     def Reset(self):
-        self.name.set(""),                                                                                                              
+        self.name.set(""),
         self.roll_num.set(""),
         self.year.set(""),
         self.department.set(""),
@@ -244,11 +244,11 @@ class Student:
 
     # Take photo samples
     def Take_Photo_Samples(self):
-        if self.name.get()=="" or  self.roll_num.get()=="" or  self.department.get()=="" or  self.year.get()=="" or self.course.get()=="":                      # If given info is not adequate, show error
+        if self.name.get()=="" or  self.roll_num.get()=="" or  self.department.get()=="" or  self.year.get()=="" or self.course.get()=="":
             messagebox.showerror("Error", "All fields are required!", parent=self.root)
         else:
             try:
-                connection = mysql.connector.connect(host="localhost", user="root", password="Mysqlpass@1",database="sys")                                      
+                connection = mysql.connector.connect(host="localhost", user="root", password="Mysqlpass@1",database="sys")
                 cursor1 = connection.cursor()
                 cursor1.execute("select * from student_details")
                 output = cursor1.fetchall()
@@ -268,13 +268,13 @@ class Student:
 
                 def cropped_face(img):
                     img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-                    face = faceClassifier.detectMultiScale(img_rgb,1.3,5)                       # scaling factor and minimum neighbor
+                    face = faceClassifier.detectMultiScale(img_rgb,1.3,5)              # scaling factor and minimum neighbor
 
                     for (x,y,w,h) in face:
                         cropped_face = img[y:y+h, x:x+w]
                         return cropped_face
 
-                capture_device = cv2.VideoCapture(0)                                             # initialising the webcam
+                capture_device = cv2.VideoCapture(0)                                    # initialising the webcam
                 image_id = 0
 
                 while True:
