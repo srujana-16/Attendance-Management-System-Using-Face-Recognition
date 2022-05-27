@@ -64,15 +64,6 @@ class Face_Recognition_System:
         b3 = Button(bg_1abel, text="Face Recognition", cursor="hand2", command=self.Face_Recog,  font=("times new roman", 15, "bold"), bg="darkblue", fg="white")
         b3.place(x=640, y=500, width=250, height=50)
 
-        # # Train data
-        # img4 = Image.open(r"login\train.jpg")
-        # img4 = img4.resize((240, 240), Image.ANTIALIAS)
-        # self.train_img = ImageTk.PhotoImage(img4)
-        # train_img = Button(bg_1abel, image=self.train_img, cursor="hand2", command=self.training_portal)
-        # train_img.place(x=300, y=480, width=240, height=240)
-        # b4 = Button(bg_1abel, text="Train Dataset", cursor="hand2", command=self.training_portal, font=("times new roman", 15, "bold"), bg="darkblue",fg="white")
-        # b4.place(x=300, y=680, width=240, height=40)
-
         # View attendance
         img5 = Image.open(r"login\attendance.png")
         img5 = img5.resize((250, 250), Image.ANTIALIAS)
