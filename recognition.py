@@ -16,7 +16,7 @@ class Recognition:
 
         # ====Image and Title====
         # Set background
-        bg = Image.open(r"login\faceRec.jpeg")
+        bg = Image.open(r"pictures\faceRec.jpeg")
         bg = bg.resize((1580, 750), Image.ANTIALIAS)
         self.student_bg = ImageTk.PhotoImage(bg)
         bg_label = Label(self.root, image=self.student_bg)
@@ -36,26 +36,27 @@ class Recognition:
         images = []                                                                    # List of all the images that are in the database
         student_id = []                                                                # list of all the student IDs in the database
         my_list = os.listdir(path)
-        # print(my_list)
 
         for cl in my_list:
             current_img = cv2.imread(f'{path}/{cl}')                                   # Reading the current image
             ids = int(os.path.split(cl)[1].split('.')[1])                              # Obtaining the ID
             images.append(current_img)                                                 # Appending the current image
             student_id.append(ids)                                                     # appending the IDs
-        # print(classNames)
 
         # Function that computes the encodings of all the images
-        def findEncodings(faces):
-            encode_list = []                                                           # Empty list that will store all the encodings
+        def FindEncodings(faces):
+            encode_list = []                                                            # empty list that will store all the encodings
             for img in faces:
-                img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)                             # Converting into RGB
-                encode = face_recognition.face_encodings(img)[0]                       # Finding the encodings
-                encode_list.append(encode)                                             # Appending it to our encoding list
-                return encode_list
+                img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)                              # converting into RGB
+                encoded_image = face_recognition.face_encodings(img)                    # finding the encodings
+                if len(encoded_image) > 0:
+                    encode_list.append(encoded_image[0])                                # appending it to our encoding list
+            return encode_list
+
 
         # Calling the function to find all the encodings of known faces
-        EncodeListKnown = findEncodings(images)
+        EncodeListKnown = FindEncodings(images)
+        print(EncodeListKnown)
         cap = cv2.VideoCapture(0)
 
         while True:
@@ -85,17 +86,14 @@ class Recognition:
                 cv2.rectangle(img, (x1, y2 - 32), (x2, y2), (0, 255, 0), cv2.FILLED)                                                   # Rectangle for text
                 cv2.putText(img, "Student ID:" + str(name), (x1 + 6, y2 - 6), cv2.FONT_HERSHEY_COMPLEX, 0.6, (255, 255, 255), 2)       # Text
 
-
-
             cv2.imshow('Webcam', img)
             cv2.waitKey(1)
 
     # ======Mark Attendance function=======
     # Function to mark attendance for list of students recognised
     def MarkAttendance(self, name):
-        with open('Attendance.csv', 'r+', newline="\n") as f:                        # Opening the file to store the data
+        with open('Attendance.csv', 'r+') as f:                                      # Opening the file to store the data
             MyDataList = f.readlines()                                               # Reading the file to ensure that attendance is not already marked
-            print(MyDataList)
             StudentList = []                                                         # Empty list that will store all the IDs
             for line in MyDataList:
                 entry = line.split(',')
