@@ -24,4 +24,4 @@ The first step in our pipeline is collecting the phot samples. This involves det
     - face_recognition
     - opencv-python 
     - pillow
-- Compile and run main.py inside \Attendance-System-Using-Face-Recognition
+- Compile and run main.py inside \Attendance-Management-System-Using-Face-Recognition
