@@ -16,7 +16,7 @@ class attendance_sheet:
 
         # ====Image and Title====
         # Set background
-        bg = Image.open(r"login\student_bg.jpg")
+        bg = Image.open(r"pictures\student_bg.jpg")
         bg = bg.resize((1600, 900), Image.ANTIALIAS)
         self.student_bg = ImageTk.PhotoImage(bg)
         bg_label = Label(self.root, image=self.student_bg)
