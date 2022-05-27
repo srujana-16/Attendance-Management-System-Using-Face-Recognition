@@ -9,7 +9,16 @@ The goal of this project is to automate the traditional attendance method, which
 - Train the model
 - View attendance report of all students
 
-### Following functionalities can be performed by the employee:
+### Following functionalities can be performed by the student:
 - Resiter themselves
 - Mark his/her time-in by scanning their face
 - View attendance report of self
+
+## How to run?
+- Clone it on your computer
+- Install the follying libraries:
+    - dlib
+    - face_recognition
+    - opencv-python 
+    - pillow
+- Compile and run main.py inside \Attendance-System-Using-Face-Recognition
