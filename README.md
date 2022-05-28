@@ -15,11 +15,11 @@ The goal of this project is to automate the traditional attendance method, which
 - View attendance report of self
 
 ## Methodology
-The first step in our pipeline is collecting the photo samples. This involves detecting the face. Facial detection is implemented using OpenCV's haarcascade classifer. 100 samples are collected each time a new student registers.
+The first step in our pipeline is collecting the photo samples, that is generating the database. This involves detecting the face. Facial detection is implemented using OpenCV's haarcascade classifer. 100 samples are collected each time a new student registers.
   
-The next step is to find the encodings for each image. The network learns to reliably generate 128 measurements for each person. Any ten different pictures of the same person should give roughly the same measurements. The measurements here are the face distances. MySQL is used for storing all the databbase.
+Once the database is generated, the next step is training the dataset to find the encodings for each image. The network learns to reliably generate 128 measurements for each person. Any ten different pictures of the same person should give roughly the same measurements. The measurements here are the face distances. MySQL is used for storing all the databbase.
   
-The final step is facial recognition. This face recognition application has been developed using Python OpenCV's Face Recognition library.  The unique encodings of these aligned faces are generated. Once the face is recognised the data is stored and the student's attendance is marked in attendance.csv.
+The final step is facial recognition. This face recognition application has been developed using Python OpenCV's Face Recognition library. The unique encodings of these faces which are generated are used to map to the right face. Once the face is recognised, the data is stored and the student's attendance is marked in attendance.csv. 
   
 Tkinter is used to generate the graphical user interface.
 
