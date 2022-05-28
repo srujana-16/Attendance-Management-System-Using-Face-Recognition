@@ -15,13 +15,16 @@ The goal of this project is to automate the traditional attendance method, which
 - View attendance report of self
 
 ## Methodology
-The first step in our pipeline is collecting the phot samples. This involves detecting the face. Facial detection is impleted usingOpenCV's haarcascade classifer. 100 samples are collected each time a new student registers. The next step is to find the encodings for each image. The neural network learns to reliably generate 128 measurements for each person. Any ten different pictures of the same person should give roughly the same measurements. The measurements here are the face distances. MySQL is used for storing all the databbase. The final step is facial recognition. The unique encodings of these aligned faces are generated. Once the face is recognised the data is stored and the student's attendance is marked in attendance.csv.
+The first step in our pipeline is collecting the phot samples. This involves detecting the face. Facial detection is impleted usingOpenCV's haarcascade classifer. 100 samples are collected each time a new student registers. The next step is to find the encodings for each image. The network learns to reliably generate 128 measurements for each person. Any ten different pictures of the same person should give roughly the same measurements. The measurements here are the face distances. MySQL is used for storing all the databbase. The final step is facial recognition. The unique encodings of these aligned faces are generated. Once the face is recognised the data is stored and the student's attendance is marked in attendance.csv. Tkinter is used to generate the graphical user interface.
 
 ## How to run?
 - Clone it on your computer
-- Install the follying libraries:
-    - dlib
-    - face_recognition
-    - opencv-python 
-    - pillow
+- Install the following dependencies:
+    - MySQL 
+    - dlib 19.24
+    - face_recognition 1.3
+    - opencv-python 4.5.5.64
+    - pillow 8.1.0
+    - numpy 1.22.3
+    - cmake 3.22.4
 - Compile and run main.py inside \Attendance-Management-System-Using-Face-Recognition
