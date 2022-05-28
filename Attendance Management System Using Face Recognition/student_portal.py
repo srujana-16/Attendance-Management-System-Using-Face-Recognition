@@ -76,11 +76,11 @@ class Student:
 
         # ======Buttons=====
         # Radio buttons
-        self.radio_Button1=StringVar()
-        radioButton1 = ttk.Radiobutton(left_frame, variable=self.radio_Button1, text="Take Photo", value="Yes")
-        radioButton1.grid(row=6, column=0)
-        radioButton2 = ttk.Radiobutton(left_frame, variable=self.radio_Button1, text="No photo sample", value="No")
-        radioButton2.grid(row=6, column=1)
+        # self.radio_Button1=StringVar()
+        # radioButton1 = ttk.Radiobutton(left_frame, variable=self.radio_Button1, text="Take Photo", value="Yes")
+        # radioButton1.grid(row=6, column=0)
+        # radioButton2 = ttk.Radiobutton(left_frame, variable=self.radio_Button1, text="No photo sample", value="No")
+        # radioButton2.grid(row=6, column=1)
 
         # Buttons frame
         button_frame = Frame(left_frame, bd=2, relief=GROOVE)
@@ -176,13 +176,14 @@ class Student:
         content = self.details_table.item(Cursor_focus)                                                                     # Obtain the contents of the table
         data = content["values"]
 
+        print(self)
         self.name.set(data[0]),                                                                                             # Setting all the variables and indexing them
         self.roll_num.set(data[1]),
         self.id.set(data[2]),
         self.year.set(data[3]),
         self.department.set(data[4]),
         self.course.set(data[5]),
-        self.radio_Button1.set(data[6])
+        # self.radio_Button1.set(data[6])
 
     # Update function
     def UpdateDetails(self):
@@ -194,7 +195,7 @@ class Student:
                 if UpdateInfo>0:
                     connection = mysql.connector.connect(host="localhost", user="root", password="Mysqlpass@1",database="sys")
                     cursor1 = connection.cursor()
-                    cursor1.execute("update student_details set name=%s, roll=%s, id=%s, year=%s, dep=%s, course=%s", (self.name.get(), self.roll_num.get(),self.id.get(), self.year.get(),self.department.get(),self.course.get()))
+                    cursor1.execute("update student_details set name=%s, roll=%s, year=%s, dep=%s, course=%s where id=%s", (self.name.get(), self.roll_num.get(), self.year.get(),self.department.get(),self.course.get(), self.id.get(),))
 
                 else:
                     if not UpdateInfo:
@@ -240,7 +241,7 @@ class Student:
         self.year.set(""),
         self.department.set(""),
         self.course.set(""),
-        self.radio_Button1.set("")
+        # self.radio_Button1.set("")
 
     # Take photo samples
     def Take_Photo_Samples(self):
@@ -248,22 +249,8 @@ class Student:
             messagebox.showerror("Error", "All fields are required!", parent=self.root)
         else:
             try:
-                connection = mysql.connector.connect(host="localhost", user="root", password="Mysqlpass@1",database="sys")
-                cursor1 = connection.cursor()
-                cursor1.execute("select * from student_details")
-                output = cursor1.fetchall()
-                index = 0
-                for i in output:
-                    index+=1
-                cursor1.execute("update student_details set name=%s, roll=%s, year=%s, dep=%s, course=%s, id=%s", (self.name.get(), self.roll_num.get(), self.year.get(), self.department.get(), self.course.get(), self.id.get()==index+1))
-
-                connection.commit()
-                self.DisplayData()
-                self.Reset()
-                connection.close()
-
+                
                 # ===== Load data =======
-
                 faceClassifier = cv2.CascadeClassifier("haarcascade_frontalface_default.xml")
 
                 def cropped_face(img):
@@ -283,7 +270,7 @@ class Student:
                         image_id += 1
                         img_s = cv2.resize(cropped_face(current_frame), (450, 450))                                       # reducing size of the image to speed up the process
                         img_s = cv2.cvtColor(img_s, cv2.COLOR_BGR2GRAY)                                                   # converting into RGB
-                        file_path = "Dataset/user." + str(index) + "." + str(image_id) + ".jpg"                           # Naming convention for the dataset
+                        file_path = "Dataset/user." + str(self.id.get()) + "." + str(image_id) + ".jpg"                   # Naming convention for the dataset
                         cv2.imwrite(file_path, img_s)
                         cv2.putText(img_s, str(image_id), (50, 50), cv2.FONT_HERSHEY_PLAIN, 2, (0, 255, 0), 2)
                         cv2.imshow("Webcam", img_s)
