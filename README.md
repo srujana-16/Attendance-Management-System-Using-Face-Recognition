@@ -24,6 +24,26 @@ STEP 2: FACE ANALYSIS After detection, a photo will capture the face and will th
 
 STEP 3: FACE RECOGNITION The final step of the process is finding a match. Your faceprint is compared to the database that stores all the facial distances. The facial recognition technology then identifies a match for your exact facial features. Once the face is recognised, it returns the user with the found match and other relevant information from the database. The data is stored and the student's attendance is marked in attendance.csv. This face recognition application has been developed using Python OpenCV's Face Recognition library.
 
+## Tech Used
+
+- Build With 
+    - Python 3.7
+  
+- Modules used
+    - OpenCV - Open Source Computer Vision and Machine Learning software library
+    - Dlib - C++ Library containing Machine Learning Algorithms 
+    - face_recognition by Adam Geitgey
+    - Tkinter - Python framework to create GUI applications
+  
+- Face recognition algorithms
+    - Haar Cascade - Face detection algorithm
+    - Dlib's HOG - To find face locations and encodings 
+    - face_recognition - Extraction of Facial Embeddings
+  
+- Software used
+    - Pycharm 2022.1.1
+    - MySQL - Database management system
+
 ## How to run?
 - Clone it on your computer
 - Install the following dependencies:
@@ -34,4 +54,4 @@ STEP 3: FACE RECOGNITION The final step of the process is finding a match. Your 
     - pillow 8.1.0
     - numpy 1.22.3
     - cmake 3.22.4
-- Compile and run main.py inside \Attendance-Management-System-Using-Face-Recognition
+- Compile and run python3 main.py inside \Attendance-Management-System-Using-Face-Recognition
