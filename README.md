@@ -15,13 +15,14 @@ The goal of this project is to automate the traditional attendance method, which
 - View attendance report of self
 
 ## Methodology
-The first step in our pipeline is collecting the photo samples, that is generating the database. This involves detecting the face. Facial detection is implemented using OpenCV's haarcascade classifer. 100 samples are collected each time a new student registers.
-  
-Once the database is generated, the next step is training the dataset to find the encodings for each image. The network learns to reliably generate 128 measurements for each person. Any ten different pictures of the same person should give roughly the same measurements. The measurements here are the face distances. MySQL is used for storing all the databbase.
-  
-The final step is facial recognition. This face recognition application has been developed using Python OpenCV's Face Recognition library. The unique encodings of these faces which are generated are used to map to the right face. Once the face is recognised, the data is stored and the student's attendance is marked in attendance.csv. 
-  
-Tkinter is used to generate the graphical user interface.
+
+Any facial recognition algorithm uses biometrics to map out facial features captured in a video still or a photograph. That information is then compared to a database of faces. 
+
+STEP 1: FACE DETECTION, This step involves collecting the photo samples for generating our database. First, a camera will detect and recognize a human’s face – one that can either be in a crowd or alone. It is most easily detected when the person is looking straight at the camera. Facial detection is implemented using OpenCV Python Haarcascade Classifer. HAAR cascade is a feature-based algorithm for object detection which is used to detect the frontal face and its features like eyes, nose, and mouth. 100 samples are collected each time a new student registers.
+
+STEP 2: FACE ANALYSIS After detection, a photo will capture the face and will then be analyzed. During analysis, the face will be separated into distinguishable landmarks – we can call these nodal points. A human face has eight nodal points. After analysis, each nodal point becomes a number in the application database. Face recognition technology will analyze each of these points – for example, the distance between your eyebrows. The network learns to reliably generate 128 measurements for each person. Any ten different pictures of the same person should give roughly the same measurements. MySQL is used for storing all the databbase.
+
+STEP 3: FACE RECOGNITION The final step of the process is finding a match. Your faceprint is compared to the database that stores all the facial distances. The facial recognition technology then identifies a match for your exact facial features. Once the face is recognised, it returns the user with the found match and other relevant information from the database. The data is stored and the student's attendance is marked in attendance.csv. This face recognition application has been developed using Python OpenCV's Face Recognition library.
 
 ## How to run?
 - Clone it on your computer
