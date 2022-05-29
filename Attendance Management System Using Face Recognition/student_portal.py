@@ -14,7 +14,7 @@ class Student:
         self.root.title("Student Portal")
         self.root.geometry("1350x700+0+0")
 
-        # =======Image and Title=======
+        # ==========Image and Title============
         # Set background
         bg = Image.open(r"pictures\student_bg.jpg")
         bg = bg.resize((1600, 900), Image.ANTIALIAS)
@@ -26,7 +26,7 @@ class Student:
         title = Label(self.root, text="Student Portal", font=("times new roman", 40, "bold"),bg="black", fg="white", bd=10, relief=GROOVE)
         title.place(x=0, y=0, relwidth=1)
 
-        # =====Variables=====
+        # ==========Variables==========
         self.name = StringVar()
         self.roll_num = StringVar()
         self.id = StringVar()
@@ -35,15 +35,15 @@ class Student:
         self.course = StringVar()
 
 
-        # ======Main frame======
+        # ==============Main frame===============
         main_frame = Frame(bg_label, bd=2)
         main_frame.place(x=150, y=130, width=1230, height=590)
 
-        # =====Left frame======
+        # =========Left frame=========
         left_frame = LabelFrame(main_frame, bd=2, relief=GROOVE, text="Student Details", font=("times new roman",18, "bold"))
         left_frame.place(x=20, y=10, width=445, height=560)
 
-        # =====User inputs=====
+        # ==========User inputs========
         # Student name
         name_label = Label(left_frame, text="Full name:", font=("times new roman", 15, "bold"))
         name_label.grid(row=0, column=0, padx=2, pady=10)
@@ -74,14 +74,7 @@ class Student:
         course_label.grid(row=5, column=0, padx=2, pady=10)
         dep_entry = Entry(left_frame, textvariable=self.course, width=20, bd=5, relief=GROOVE, font=("", 15)).grid(row=5, column=1, padx=20, sticky=W)
 
-        # ======Buttons=====
-        # Radio buttons
-        # self.radio_Button1=StringVar()
-        # radioButton1 = ttk.Radiobutton(left_frame, variable=self.radio_Button1, text="Take Photo", value="Yes")
-        # radioButton1.grid(row=6, column=0)
-        # radioButton2 = ttk.Radiobutton(left_frame, variable=self.radio_Button1, text="No photo sample", value="No")
-        # radioButton2.grid(row=6, column=1)
-
+        # =========Buttons=========
         # Buttons frame
         button_frame = Frame(left_frame, bd=2, relief=GROOVE)
         button_frame.place(x=10,y=335,width=420, height=160)
@@ -101,7 +94,7 @@ class Student:
         take_pic_button = Button(button_frame, text="Take photo", command=self.Take_Photo_Samples, width=45, height=2, font=("times new roman", 13, "bold"), bg="darkblue",fg="white")          # Take photo button
         take_pic_button.place(x=0, y=110)
 
-        # =====Right frame=====
+        # ===========Right frame===========
         right_frame = LabelFrame(main_frame, bd=2, relief=GROOVE, text="View student details", font=("times new roman", 18, "bold"))
         right_frame.place(x=500, y=10, width=705, height=560)
 
@@ -138,7 +131,8 @@ class Student:
         self.details_table.bind("<ButtonRelease>", self.GetCursor)
         self.DisplayData()
 
-    # ==========FUNCTIONS===========
+        
+    # ===========FUNCTIONS=============
     # Store the data in database
     def AddData(self):
         if self.name.get()=="" or  self.roll_num.get()=="" or self.id.get()=="" or self.department.get()=="" or  self.year.get()=="" or self.course.get()=="":                      # If given info is not adequate, show error
@@ -156,6 +150,7 @@ class Student:
             except EXCEPTION as es:
                 messagebox.showerror("Error", f"Error due to: {str(es)}", parent=self.root)
 
+                
     # Display the data stored
     def DisplayData(self):
         connection = mysql.connector.connect(host="localhost", user="root", password="Mysqlpass@1", database="sys")         # Creating the connection
@@ -170,6 +165,7 @@ class Student:
             connection.commit()
         connection.close()
 
+        
     # Get cursor to get all contents from the table to update the student details
     def GetCursor(self, event=""):
         Cursor_focus = self.details_table.focus()                                                                           # Focus the cursor at the table
@@ -185,6 +181,7 @@ class Student:
         self.course.set(data[5]),
         # self.radio_Button1.set(data[6])
 
+        
     # Update function
     def UpdateDetails(self):
         if self.name.get()=="" or  self.roll_num.get()=="" or self.id.get()=="" or  self.department.get()=="" or  self.year.get()=="" or self.course.get()=="":                      # If given info is not adequate, show error
@@ -233,6 +230,7 @@ class Student:
             except EXCEPTION as es:
                 messagebox.showerror("Error", f"Error due to: {str(es)}", parent=self.root)
 
+                
     # Reset function
     # Setting all the variables to initial conditions
     def Reset(self):
@@ -243,6 +241,7 @@ class Student:
         self.course.set(""),
         # self.radio_Button1.set("")
 
+        
     # Take photo samples
     def Take_Photo_Samples(self):
         if self.name.get()=="" or  self.roll_num.get()=="" or  self.department.get()=="" or  self.year.get()=="" or self.course.get()=="":
