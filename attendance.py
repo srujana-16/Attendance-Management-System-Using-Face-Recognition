@@ -14,7 +14,7 @@ class attendance_sheet:
         self.root.title("Attendance")
         self.root.geometry("1350x700+0+0")
 
-        # ====Image and Title====
+        # ========Image and Title========
         # Set background
         bg = Image.open(r"pictures\student_bg.jpg")
         bg = bg.resize((1600, 900), Image.ANTIALIAS)
@@ -26,7 +26,7 @@ class attendance_sheet:
         title = Label(self.root, text="Attendance", font=("times new roman", 40, "bold"), bg="black", fg="white", bd=10, relief=GROOVE)
         title.place(x=0, y=0, relwidth=1)
 
-        # ====Main frame===
+        # =========Main frame==========
         main_frame = Frame(bg_label, bd=2)
         main_frame.place(x=225, y=130, width=1100, height=590)
 
