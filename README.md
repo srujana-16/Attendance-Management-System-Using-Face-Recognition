@@ -3,6 +3,8 @@ This project entails developing an attendance system that uses facial recognitio
 
 The goal of this project is to automate the traditional attendance method, which involves manually marking attendance. The system's digitalization would help to improve data visualisation by employing graphs to show the number of students present today, total classes attended, in-time, and other metrics, as well as decrease manual process errors. Its enhanced features make it a viable upgrade and replacement for older attendance systems.
 
+#### Video demo - [Click here](https://iiitaphyd-my.sharepoint.com/:v:/g/personal/srujana_vanka_students_iiit_ac_in/EV1IMQt3lCFFtwL5Cd8koYgBETDnJQDW2IY1NOOjY_z5ZA?e=1BSnjr)
+
 ### Following functionalities can be performed by the admin:
 - Register new students to the system
 - Add students photos to the training data set
@@ -23,8 +25,6 @@ STEP 1: FACE DETECTION, This step involves collecting the photo samples for gene
 STEP 2: FACE ANALYSIS After detection, a photo will capture the face and will then be analyzed. During analysis, the face will be separated into distinguishable landmarks – we can call these nodal points. A human face has eight nodal points. After analysis, each nodal point becomes a number in the application database. Face recognition technology will analyze each of these points – for example, the distance between your eyebrows. The network learns to reliably generate 128 measurements for each person. Any ten different pictures of the same person should give roughly the same measurements. MySQL is used for storing all the databbase.
 
 STEP 3: FACE RECOGNITION The final step of the process is finding a match. Your faceprint is compared to the database that stores all the facial distances. The facial recognition technology then identifies a match for your exact facial features. Once the face is recognised, it returns the user with the found match and other relevant information from the database. The data is stored and the student's attendance is marked in attendance.csv. This face recognition application has been developed using Python OpenCV's Face Recognition library.
-
-#### Video Demo - [Click here](https://iiitaphyd-my.sharepoint.com/:f:/g/personal/srujana_vanka_students_iiit_ac_in/EhPiQoArdJZCpXlN_yvhnEIB869iW9QGStpw_SbPd8Miiw?e=JwNRA3)
 
 ## Tech Used
 
