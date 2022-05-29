@@ -14,7 +14,7 @@ class Recognition:
         self.root.title("Face Recognition")
         self.root.geometry("1350x700+0+0")
 
-        # ====Image and Title====
+        # ========Image and Title=========
         # Set background
         bg = Image.open(r"pictures\faceRec.jpeg")
         bg = bg.resize((1580, 750), Image.ANTIALIAS)
@@ -30,7 +30,8 @@ class Recognition:
         face_button = Button(self.root, text="Start", command= self.face_recognition, width=20, height=3, font=("times new roman", 18, "bold"), bg="black", fg="white", relief=GROOVE)
         face_button.place(x=430, y=475)
 
-    # =======Face Recognition function=======
+        
+    # ==========Face Recognition function==========
     def face_recognition(self):
         path = 'Dataset'
         images = []                                                                    # List of all the images that are in the database
@@ -43,6 +44,7 @@ class Recognition:
             images.append(current_img)                                                 # Appending the current image
             student_id.append(ids)                                                     # appending the IDs
 
+            
         # Function that computes the encodings of all the images
         def FindEncodings(faces):
             encode_list = []                                                            # empty list that will store all the encodings
@@ -56,7 +58,7 @@ class Recognition:
 
         # Calling the function to find all the encodings of known faces
         EncodeListKnown = FindEncodings(images)
-        print(EncodeListKnown)
+        # print(EncodeListKnown)
         cap = cv2.VideoCapture(0)
 
         while True:
@@ -77,7 +79,6 @@ class Recognition:
                     name = student_id[matchIndex]
                     self.MarkAttendance(name)
 
-
                 else:
                     name = 'Unknown'                                                                                                   # If face not recorded in database, print "unknown"
                 y1, x2, y2, x1 = faceLoc
@@ -87,23 +88,29 @@ class Recognition:
                 cv2.putText(img, "Student ID:" + str(name), (x1 + 6, y2 - 6), cv2.FONT_HERSHEY_COMPLEX, 0.6, (255, 255, 255), 2)       # Text
 
             cv2.imshow('Webcam', img)
-            cv2.waitKey(1)
+            if cv2.waitKey(1) == 13:                                                                                                   # Once enter is pressed, close the webcam
+                break
+        cap.release()
+        cv2.destroyAllWindows()
+
 
     # ======Mark Attendance function=======
     # Function to mark attendance for list of students recognised
-    def MarkAttendance(self, name):
-        with open('Attendance.csv', 'r+') as f:                                      # Opening the file to store the data
+    def MarkAttendance(self, student_id):
+        StudentList = []                                                             # Empty list that will store all the IDs
+        with open('Attendance.csv', 'r+', newline="\n") as f:                        # Opening the file to store the data
             MyDataList = f.readlines()                                               # Reading the file to ensure that attendance is not already marked
-            StudentList = []                                                         # Empty list that will store all the IDs
             for line in MyDataList:
-                entry = line.split(',')
-                StudentList.append(entry[1])                                         # Appending only the name in the list
-            if name not in StudentList:                                              # Checking if the current name is present or not
+                if line == "\n":
+                    continue
+                else:
+                    entry = line.split(',')
+                    StudentList.extend(map(int, entry[0]))                           # Appending only the ID in the list
+            if student_id not in StudentList:                                        # Checking if the current ID is present or not
                 now = datetime.now()
                 date = now.strftime("%d/%m/%Y")                                      # Storing the date
                 time = now.strftime('%H:%M')                                         # Storing the time of entry
-                f.writelines(f'\n{name}, {date}, {time}, Present')
-
+                f.writelines(f'{student_id}, {date}, {time}, Present\n')
 
 
 if __name__ == "__main__":
