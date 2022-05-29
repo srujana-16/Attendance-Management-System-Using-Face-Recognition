@@ -18,11 +18,11 @@ class Face_Recognition_System:
         self.root.title("Face Recognition System")
         self.root.geometry("1350x700+0+0")
 
-        # =======Set background=========
+        # ==========Set background===========
         self.bg_icon = ImageTk.PhotoImage(file="pictures/bg.jpg")
         bg_1abel = Label(self.root, image=self.bg_icon).pack()
 
-        # ========Title========
+        # ==========Title==========
         title = Label(self.root, text="Face Recognition Attendance System", font=("times new roman", 40, "bold"), bg="black", fg="white", bd=10, relief=GROOVE)
         title.place(x=0, y=0, relwidth=1)
 
@@ -37,7 +37,7 @@ class Face_Recognition_System:
         time_label.place(x=5, y=5, width=110,height=50)
         Time()
 
-        # =========Buttons=========
+        # ==============Buttons===============
         # Student portal
         img1 = Image.open(r"pictures\student_portal.jpg")                                                                                                                       # Path for the image
         img1 = img1.resize((250,250), Image.ANTIALIAS)                                                                                                                          # Resizing
@@ -85,7 +85,7 @@ class Face_Recognition_System:
         b6.place(x=1240, y=500, width=250, height=50)
 
 
-    # ======FUNCTIONS=======
+    # ==========FUNCTIONS===========
     # Function to link main and student portal
     def details_portal(self):
         self.student_window = Toplevel(self.root)
